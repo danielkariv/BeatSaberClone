@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b64aceo51178s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tnvsk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qf6nx"]
+transparency = 1
+albedo_color = Color(0.658824, 0, 0.0392157, 0.713726)
+metallic = 0.7
+metallic_specular = 0.0
+
+[node name="Area3D" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_tnvsk")
+surface_material_override/0 = SubResource("StandardMaterial3D_qf6nx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]

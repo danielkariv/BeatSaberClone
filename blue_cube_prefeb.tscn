@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://fiqkyxgpcx43"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m228u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wy3mb"]
+albedo_color = Color(0.0980392, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vd1e1"]
+lightmap_size_hint = Vector2i(14, 21)
+material = SubResource("StandardMaterial3D_wy3mb")
+
+[sub_resource type="PrismMesh" id="PrismMesh_pl50c"]
+
+[node name="Area3D" type="Area3D" groups=["Blue"]]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_m228u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_vd1e1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0.075)
+mesh = SubResource("PrismMesh_pl50c")

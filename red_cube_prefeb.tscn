@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1msa006ub34h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ceqfa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdyv8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vd1e1"]
+material = SubResource("StandardMaterial3D_gdyv8")
+
+[sub_resource type="PrismMesh" id="PrismMesh_djbn1"]
+
+[node name="Area3D" type="Area3D" groups=["Red"]]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ceqfa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_vd1e1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0.075)
+mesh = SubResource("PrismMesh_djbn1")
