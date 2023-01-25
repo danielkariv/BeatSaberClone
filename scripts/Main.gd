@@ -59,9 +59,9 @@ func _ready():
 	
 	# loads songs_lists -> beatmap_info -> select difficulty(level) -> load difficulty(level) beatmap.
 	var song_dirs = get_songs_lists()
-	if len(song_dirs) < 0:
+	if len(song_dirs) <= 0:
 		print("No songs found!")
-		get_tree().close()
+		get_tree().close() # TODO: doesn't work, crashing for now.
 	if debug:
 		print(song_dirs)
 	var rng = RandomNumberGenerator.new() # TODO: used for selection right now but  switch with UI interface.
