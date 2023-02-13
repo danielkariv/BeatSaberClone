@@ -55,6 +55,9 @@ func _ready():
 					print("Found file: " + file_name)
 				file_name = user_dir.get_next()
 	
+	process_new_beatmap()
+
+func process_new_beatmap():
 	var current = Time.get_unix_time_from_system()
 	
 	# loads songs_lists -> beatmap_info -> select difficulty(level) -> load difficulty(level) beatmap.
@@ -196,7 +199,6 @@ func load_beatmap(path : String):
 	var songStream = load_ogg(songPath)
 	$AudioStreamPlayer.stream = songStream
 
-
 func _process(delta):
 	time += delta
 	if time > song_time:
@@ -205,7 +207,6 @@ func _process(delta):
 		$TimeLabel.text = get_time(time) + "/" + get_time(song_time)
 	
 	$Scroller.transform.origin.z += delta * noteJumpMovementSpeed * bpm/60
-	
 
 ### Return given value (seconds) in a format of mins:secs with zero-filling to two digits at secs.
 func get_time(value : float) -> String:
@@ -229,3 +230,9 @@ func load_ogg(path) -> AudioStream:
 	seq.packet_data = file.get_buffer(file.get_length())
 	sound.packet_sequence = seq
 	return sound
+
+func on_play_beatmap(currentSongPath,diff_selected):
+	print("Testing in game manager", currentSongPath,diff_selected)
+	# TODO: 13/02/2023, Can't test it yet as we don't have pointers to use the menus, not clear if we do get currentSongPath, and diff_selected.
+	#		Also, some of the code here in this script isn't needed anymore when we got the menu selection working.
+	pass

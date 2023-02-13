@@ -10,6 +10,8 @@ var btn_play : Button
 var currentSongPath = null
 var diff_selected = null
 
+signal play_pressed(songPath,diff)
+
 func _ready():
 	get_node("MarginContainer").visible = false
 	btn_easy = get_node("MarginContainer/VBoxContainer/HBoxContainer/EasyButton")
@@ -19,11 +21,11 @@ func _ready():
 	btn_expertplus = get_node("MarginContainer/VBoxContainer/HBoxContainer/ExpertPlusButton")
 	btn_play = get_node("MarginContainer/VBoxContainer/PlayButton")
 	
-	btn_easy.pressed.connect(on_difficulty_selected.bind(0))
-	btn_normal.pressed.connect(on_difficulty_selected.bind(1))
-	btn_hard.pressed.connect(on_difficulty_selected.bind(2))
-	btn_expert.pressed.connect(on_difficulty_selected.bind(3))
-	btn_expertplus.pressed.connect(on_difficulty_selected.bind(4))
+	btn_easy.pressed.connect(on_difficulty_selected.bind('Easy'))
+	btn_normal.pressed.connect(on_difficulty_selected.bind('Normal'))
+	btn_hard.pressed.connect(on_difficulty_selected.bind('Hard'))
+	btn_expert.pressed.connect(on_difficulty_selected.bind('Expert'))
+	btn_expertplus.pressed.connect(on_difficulty_selected.bind('ExpertPlus'))
 	btn_play.pressed.connect(on_play_pressed)
 
 func _on_song_selected(songPath):
@@ -91,4 +93,4 @@ func on_difficulty_selected(diff):
 
 func on_play_pressed():
 	print(currentSongPath,diff_selected)
-	# TODO: load the map and run it.
+	play_pressed.emit(currentSongPath,diff_selected)
