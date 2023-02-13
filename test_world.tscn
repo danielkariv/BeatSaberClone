@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cam248xrc4fbd"]
+[gd_scene load_steps=22 format=3 uid="uid://cam248xrc4fbd"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_jwfty"]
 [ext_resource type="PackedScene" uid="uid://b1msa006ub34h" path="res://red_cube_prefeb.tscn" id="2_36mie"]
 [ext_resource type="PackedScene" uid="uid://fiqkyxgpcx43" path="res://blue_cube_prefeb.tscn" id="3_rmv7v"]
 [ext_resource type="PackedScene" uid="uid://bcwi3jxxaqde6" path="res://boom_predeb.tscn" id="4_pjieo"]
 [ext_resource type="PackedScene" uid="uid://b64aceo51178s" path="res://wall_prefeb.tscn" id="5_p1e1m"]
+[ext_resource type="PackedScene" uid="uid://u0lxjnbcd87l" path="res://songselection.tscn" id="6_vfbf3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r7u48"]
 albedo_color = Color(1, 0, 0, 1)
@@ -59,6 +60,17 @@ metallic_specular = 0.1
 [sub_resource type="PlaneMesh" id="PlaneMesh_2twi3"]
 material = SubResource("StandardMaterial3D_i83vj")
 size = Vector2(4, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0ep1j"]
+size = Vector2(16, 10)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3the1"]
+viewport_path = NodePath("MeshInstance3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0de7b"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_3the1")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_jwfty")
@@ -137,3 +149,21 @@ text = "SONG NAME"
 [node name="LevelFloor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -49)
 mesh = SubResource("PlaneMesh_2twi3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1, -4)
+mesh = SubResource("QuadMesh_0ep1j")
+surface_material_override/0 = SubResource("StandardMaterial3D_0de7b")
+
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D"]
+disable_3d = true
+transparent_bg = true
+msaa_2d = 1
+screen_space_aa = 1
+size = Vector2i(960, 600)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MeshInstance3D/SubViewport"]
+
+[node name="Menu" parent="MeshInstance3D/SubViewport/CanvasLayer" instance=ExtResource("6_vfbf3")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
