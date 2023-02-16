@@ -32,6 +32,10 @@ movie_writer/mjpeg_quality=0.9
 movie_writer/movie_file="/Users/daniel/godot_recording.avi"
 movie_writer/fps=30
 
+[gui]
+
+theme/custom="res://UI/ui_theme.tres"
+
 [xr]
 
 openxr/enabled=true

@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://u0lxjnbcd87l"]
+[gd_scene load_steps=11 format=3 uid="uid://cw6hxx6ctep0f"]
 
 [ext_resource type="Script" path="res://UI/SongSelectionMenu.gd" id="1_6ewya"]
 [ext_resource type="PackedScene" uid="uid://o07j75jph57l" path="res://UI/SongList/SongList.tscn" id="1_lx4rt"]
 [ext_resource type="PackedScene" uid="uid://bq7s2yx4rf3lm" path="res://UI/SongPreview/SongPreview.tscn" id="3_05iql"]
 [ext_resource type="Script" path="res://UI/SongPreview/SongPreview.gd" id="4_hlg6h"]
+[ext_resource type="Texture2D" uid="uid://bn2g8t2r03bv0" path="res://assets/icons/info.svg" id="5_jay0x"]
+[ext_resource type="Script" path="res://UI/Tooltip/Tooltip.gd" id="5_qq75p"]
+[ext_resource type="Texture2D" uid="uid://bmds3h5et7c0c" path="res://assets/icons/folder.svg" id="6_paa5o"]
+[ext_resource type="Texture2D" uid="uid://c1xfu2rkn5dul" path="res://assets/icons/bar-chart-2.svg" id="7_6cyss"]
+[ext_resource type="Texture2D" uid="uid://dffln3mjmi481" path="res://assets/icons/settings.svg" id="8_67j0x"]
+[ext_resource type="Texture2D" uid="uid://do8ierhekyjoa" path="res://assets/icons/log-out.svg" id="9_3r1ld"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -16,11 +22,79 @@ script = ExtResource("1_6ewya")
 
 [node name="SongList" parent="." instance=ExtResource("1_lx4rt")]
 layout_mode = 1
-offset_right = 394.0
+anchors_preset = -1
+anchor_right = 0.3
+offset_right = 0.0
 
 [node name="SongPreview" parent="." instance=ExtResource("3_05iql")]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-offset_left = -308.0
+anchor_left = 0.7
+offset_left = 0.0
 script = ExtResource("4_hlg6h")
+
+[node name="Tooltip" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("5_qq75p")
+
+[node name="ButtonList" type="HBoxContainer" parent="Tooltip"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 64.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="InfoButton" type="Button" parent="Tooltip/ButtonList"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_jay0x")
+icon_alignment = 1
+expand_icon = true
+
+[node name="LeaderboardButton" type="Button" parent="Tooltip/ButtonList"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("7_6cyss")
+icon_alignment = 1
+expand_icon = true
+
+[node name="FolderButton" type="Button" parent="Tooltip/ButtonList"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("6_paa5o")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SettingsButton" type="Button" parent="Tooltip/ButtonList"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("8_67j0x")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="Tooltip/ButtonList"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("9_3r1ld")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TooltipLabel" type="Label" parent="Tooltip"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 75.0
+offset_right = 80.0
+offset_bottom = 101.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 1
