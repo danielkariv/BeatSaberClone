@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://u0lxjnbcd87l"]
+
+[ext_resource type="Script" path="res://UI/SongSelectionMenu.gd" id="1_6ewya"]
+[ext_resource type="PackedScene" uid="uid://o07j75jph57l" path="res://UI/SongList/SongList.tscn" id="1_lx4rt"]
+[ext_resource type="PackedScene" uid="uid://bq7s2yx4rf3lm" path="res://UI/SongPreview/SongPreview.tscn" id="3_05iql"]
+[ext_resource type="Script" path="res://UI/SongPreview/SongPreview.gd" id="4_hlg6h"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ewya")
+
+[node name="SongList" parent="." instance=ExtResource("1_lx4rt")]
+layout_mode = 1
+offset_right = 394.0
+
+[node name="SongPreview" parent="." instance=ExtResource("3_05iql")]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+offset_left = -308.0
+script = ExtResource("4_hlg6h")

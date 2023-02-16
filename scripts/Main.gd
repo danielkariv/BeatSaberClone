@@ -20,6 +20,7 @@ var songlabel : String
 var songPath : String
 
 var time : float = 0
+var isplaying  = false
 var debug := true
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,6 +56,9 @@ func _ready():
 					print("Found file: " + file_name)
 				file_name = user_dir.get_next()
 	
+	process_new_beatmap()
+
+func process_new_beatmap():
 	var current = Time.get_unix_time_from_system()
 	
 	# loads songs_lists -> beatmap_info -> select difficulty(level) -> load difficulty(level) beatmap.
@@ -95,7 +99,6 @@ func get_songs_lists(path : String = "user://beatmaps") -> Array:
 					print("Found file: " + file_name)
 				file_name = user_dir.get_next()
 	return songs_array;
-	pass
 
 func load_beatmap_info(beatmap_path : String) -> Array:
 	var file = FileAccess.open(beatmap_path + "/Info.dat", FileAccess.READ)
@@ -108,7 +111,7 @@ func load_beatmap_info(beatmap_path : String) -> Array:
 		print(dict["_previewStartTime"],"|||", dict["_previewDuration"])
 		print(dict["_songFilename"],"|||", dict["_coverImageFilename"],"|||", dict["_environmentName"],"|||", dict.get("_allDirectionsEnvironmentName"))
 		print(dict["_songTimeOffset"])
-		print(dict["_customData"]) # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
+		print(dict.get("_customData")) # Note: can be non existing # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
 	# load data from config file.
 	songPath = beatmap_path + "/" + dict["_songFilename"]
 	bpm = dict["_beatsPerMinute"]
@@ -116,7 +119,6 @@ func load_beatmap_info(beatmap_path : String) -> Array:
 	songlabel = get_song_info(dict["_songAuthorName"], dict["_songName"], dict["_levelAuthorName"]) # TODO: maybe move it out of here, to post processing with difficulity
 	var difficultyBeatMaps = dict["_difficultyBeatmapSets"][0]["_difficultyBeatmaps"]
 	return difficultyBeatMaps
-	pass
 
 func load_difficulty(levelinfo):
 	var filename = levelinfo["_beatmapFilename"]
@@ -127,6 +129,12 @@ func load_difficulty(levelinfo):
 	return filename
 
 func load_beatmap(path : String):
+	var childs = scroller.get_children() # remove old beatmap.
+	for child in childs:
+		scroller.remove_child(child)
+		child.queue_free()
+	scroller.transform.origin.z = 0 # reset position.
+	
 	var file = FileAccess.open(path,FileAccess.READ)
 	var text = file.get_as_text()
 	var dict = JSON.parse_string(text)
@@ -195,17 +203,17 @@ func load_beatmap(path : String):
 	$SongLabel.text = songlabel
 	var songStream = load_ogg(songPath)
 	$AudioStreamPlayer.stream = songStream
-
+	
 
 func _process(delta):
-	time += delta
-	if time > song_time:
-		get_tree().quit()
-	else:
-		$TimeLabel.text = get_time(time) + "/" + get_time(song_time)
-	
-	$Scroller.transform.origin.z += delta * noteJumpMovementSpeed * bpm/60
-	
+	if isplaying:
+		time += delta
+		if time > song_time:
+			get_tree().quit()
+		else:
+			$TimeLabel.text = get_time(time) + "/" + get_time(song_time)
+		
+		scroller.transform.origin.z += delta * noteJumpMovementSpeed * bpm/60
 
 ### Return given value (seconds) in a format of mins:secs with zero-filling to two digits at secs.
 func get_time(value : float) -> String:
@@ -229,3 +237,9 @@ func load_ogg(path) -> AudioStream:
 	seq.packet_data = file.get_buffer(file.get_length())
 	sound.packet_sequence = seq
 	return sound
+
+func on_play_beatmap(currentSongPath,diff_selected):
+	print("Testing in game manager", currentSongPath,diff_selected)
+	# TODO: 13/02/2023, Can't test it yet as we don't have pointers to use the menus, not clear if we do get currentSongPath, and diff_selected.
+	#		Also, some of the code here in this script isn't needed anymore when we got the menu selection working.
+	pass
