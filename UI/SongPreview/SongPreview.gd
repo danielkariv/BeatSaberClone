@@ -29,7 +29,6 @@ func _ready():
 	btn_play.pressed.connect(on_play_pressed)
 
 func _on_song_selected(songPath):
-	print("selected:" , songPath)
 	get_node("MarginContainer").visible = true
 	load_beatmap_info(songPath)
 	pass
@@ -45,7 +44,7 @@ func load_beatmap_info(beatmap_path : String):
 		print(dict["_previewStartTime"],"|||", dict["_previewDuration"])
 		print(dict["_songFilename"],"|||", dict["_coverImageFilename"],"|||", dict["_environmentName"],"|||", dict.get("_allDirectionsEnvironmentName"))
 		print(dict["_songTimeOffset"])
-		print(dict["_customData"]) # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
+		print(dict["_customData"]) # NOTE: doesn't exist in some songs. # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
 	# load data from config file.
 	get_node("MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer/SongName").text = dict["_songName"]
 	get_node("MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer/Author").text = dict["_songAuthorName"]
@@ -88,9 +87,7 @@ func load_beatmap_info(beatmap_path : String):
 func on_difficulty_selected(diff):
 	diff_selected = diff
 	btn_play.disabled = false
-	print("selected diff ", diff)
 	# TODO: add here current score for this level + diff. 
 
 func on_play_pressed():
-	print(currentSongPath,diff_selected)
 	play_pressed.emit(currentSongPath,diff_selected)

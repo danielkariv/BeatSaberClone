@@ -41,10 +41,7 @@ func get_songs_lists(path : String = "user://beatmaps") -> Array:
 			var file_name = user_dir.get_next()
 			while file_name != "":
 				if user_dir.current_is_dir():
-					print("Found directory: " + file_name)
 					songs_array.append(user_dir.get_current_dir() + "/" + file_name)
-				else:
-					print("Found file: " + file_name)
 				file_name = user_dir.get_next()
 	return songs_array;
 
@@ -59,7 +56,7 @@ func load_beatmap_info(beatmap_path : String) -> Dictionary:
 		print(dict["_previewStartTime"],"|||", dict["_previewDuration"])
 		print(dict["_songFilename"],"|||", dict["_coverImageFilename"],"|||", dict["_environmentName"],"|||", dict.get("_allDirectionsEnvironmentName"))
 		print(dict["_songTimeOffset"])
-		print(dict["_customData"]) # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
+		print(dict["_customData"]) # NOTE: doesn't exist in some songs. # NOTE: custom date isn't needed for loading the beatmap, more so for general info. (also don't think it is part of offical beatmaps).
 	# load data from config file.
 	return dict
 
