@@ -1,9 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://cam248xrc4fbd"]
+[gd_scene load_steps=22 format=3 uid="uid://cam248xrc4fbd"]
 
 [ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="6_6yhp5"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="6_gcfve"]
 [ext_resource type="PackedScene" uid="uid://cw6hxx6ctep0f" path="res://songselection.tscn" id="6_vfbf3"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="8_m73sb"]
+
+[sub_resource type="GDScript" id="GDScript_figda"]
+script/source = "extends XRController3D
+
+func _ready():
+	GameManager._left_controller = self
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r7u48"]
 albedo_color = Color(1, 0, 0, 1)
@@ -17,6 +24,13 @@ height = 1.2
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_70org"]
 radius = 0.05
 height = 1.2
+
+[sub_resource type="GDScript" id="GDScript_0xvta"]
+script/source = "extends XRController3D
+
+func _ready():
+	GameManager._right_controller = self
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6at4"]
 albedo_color = Color(0.215686, 0, 1, 1)
@@ -69,6 +83,18 @@ metallic_specular = 0.1
 material = SubResource("StandardMaterial3D_i83vj")
 size = Vector2(4, 100)
 
+[sub_resource type="GDScript" id="GDScript_3p68l"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	GameManager.show_menu.connect(on_changed_menu_visabilty)
+
+func on_changed_menu_visabilty(value : bool):
+	get_parent().visible = value
+"
+
 [sub_resource type="GDScript" id="GDScript_hitxt"]
 script/source = "extends Node3D
 
@@ -99,6 +125,7 @@ fov = 110.0
 [node name="LeftController" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
+script = SubResource("GDScript_figda")
 
 [node name="Blade" type="Node3D" parent="XROrigin3D/LeftController"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.35, -0.2)
@@ -121,6 +148,7 @@ distance = 5.0
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
+script = SubResource("GDScript_0xvta")
 
 [node name="Blade2" type="Node3D" parent="XROrigin3D/RightController"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.35, -0.2)
@@ -165,6 +193,9 @@ screen_size = Vector2(4, 2)
 viewport_size = Vector2(1280, 720)
 unshaded = true
 scene = ExtResource("6_vfbf3")
+
+[node name="Node" type="Node" parent="Viewport2Din3D"]
+script = SubResource("GDScript_3p68l")
 
 [node name="InGameUI" type="Node3D" parent="."]
 script = SubResource("GDScript_hitxt")

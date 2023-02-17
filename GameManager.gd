@@ -7,6 +7,10 @@ extends Node
 
 var interface : XRInterface
 var placement_offset : Vector3 = Vector3(-1.5,0.5,0)
+
+var _left_controller : XRController3D
+var _right_controller : XRController3D
+
 # need to reset all of those when loading new beatmap.
 var scroller : Node3D
 var isplaying : bool = false
@@ -18,9 +22,9 @@ var noteJumpMovementSpeed : float = 0.0
 var noteJumpStartBeatOffset : float = 0.0
 var song_time : float = 0.0
 
-signal song_label_changed(new_text)
-signal time_label_changed(new_text)
-
+signal song_label_changed(new_text : String)
+signal time_label_changed(new_text : String)
+signal show_menu(value : bool)
 func _ready():
 	interface = XRServer.find_interface("OpenXR")
 	if interface and interface.is_initialized():
@@ -155,11 +159,10 @@ func load_beatmap(path : String):
 		# TODO: not extacly fit, need to a better way to strech a shape to fit with blocks layout.
 	song_time = notes[-1]["_time"] * 60 / bpm ; # in seconds.
 	song_label_changed.emit(songlabel)
-	
+	show_menu.emit(false)
 	# TODO: Loading sound file (dones't work with Godot 4.0.RC2)
 	# var songStream = load_ogg(songPath)
 	# $AudioStreamPlayer.stream = songStream
-	
 
 func _process(delta):
 	if isplaying:
@@ -172,7 +175,13 @@ func _process(delta):
 			time_label_changed.emit(get_time(time) + "/" + get_time(song_time))
 		
 		scroller.transform.origin.z += delta * noteJumpMovementSpeed * bpm/60
-
+	if _left_controller != null and _right_controller != null:
+		if _left_controller.get_input("by_button") or _right_controller.get_input("by_button"):
+			isplaying = false
+			show_menu.emit(true)
+	else:
+		print("no controllers? _left: ", _left_controller, " _right: ", _right_controller)
+	
 ### Return given value (seconds) in a format of mins:secs with zero-filling to two digits at secs.
 func get_time(value : float) -> String:
 	var mins : int = int(value/60)
