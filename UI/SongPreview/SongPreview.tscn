@@ -30,14 +30,17 @@ layout_mode = 2
 [node name="SongName" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Song Name"
+text_overrun_behavior = 4
 
 [node name="Author" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Auther"
+text_overrun_behavior = 4
 
 [node name="LevelAuthor" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 text = "Level Auther"
+text_overrun_behavior = 4
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
@@ -65,7 +68,7 @@ theme_override_constants/margin_bottom = 12
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("1_icdm2")
-expand_mode = 4
+expand_mode = 5
 stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

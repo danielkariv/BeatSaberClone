@@ -160,7 +160,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -49)
 mesh = SubResource("PlaneMesh_2twi3")
 
 [node name="Viewport2Din3D" parent="." instance=ExtResource("8_m73sb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
 screen_size = Vector2(4, 2)
 viewport_size = Vector2(1280, 720)
 unshaded = true
@@ -170,18 +170,18 @@ scene = ExtResource("6_vfbf3")
 script = SubResource("GDScript_hitxt")
 
 [node name="ScoreLabel" type="Label3D" parent="InGameUI"]
-transform = Transform3D(0.819152, -8.56535e-17, 0.573576, 3.48787e-16, 1, -3.48787e-16, -0.573576, 4.85765e-16, 0.819152, -2, 1.5, -3)
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -3, 1.5, -3)
 text = "Score:
 1000"
 font_size = 48
 outline_size = 4
 
 [node name="TimeLabel" type="Label3D" parent="InGameUI"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 2.08165e-12, 0.25, -2)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, -0.1, -3)
 text = "0:00/0:00"
 outline_size = 4
 
 [node name="SongLabel" type="Label3D" parent="InGameUI"]
-transform = Transform3D(1, -1.48731e-16, 2.85709e-16, 2.85709e-16, 0.819152, -0.573576, -1.48731e-16, 0.573576, 0.819152, 2.08165e-12, 3, -5)
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 2.08165e-12, 3, -3)
 text = "SONG NAME"
 outline_size = 4
